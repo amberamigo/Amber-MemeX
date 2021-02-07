@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XMeme - Amber</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<h1 class="heading">XMeme</h1>
+     
+	   <form action="/" method="post">
+
+          <div class="form-group">
+             <label for="name">Meme Owner</label>
+             <input type="text" class="form-control" name="name" id="name" placeholder="Enter your full name">
+         </div>
+
+         <div class="form-group">
+             <label for="caption">Caption</label>
+             <input type="text" class="form-control" name="caption" placeholder="Be creative with the caption">
+         </div>
+
+         <div class="form-group">
+             <label for="url">Meme URL</label>
+             <div class="input-group mb-3">
+                  <input type="text" class="form-control" name="url" placeholder="Enter URL of your meme here" >
+             <div class="input-group-append">
+             <button class="btn btn-primary" type="submit" >Submit Meme</button>
+             </div>
+             </div>
+         </div>
+      </form>
+
+      <div>
+      	  <% memeItems.reverse(); %>
+      	  
+      	  <% memeItems.forEach(function(meme) {  %>
+      	   <div class="col-md-4">
+      	   	   <h3> <%= meme.name %></h3>
+      	   	   <h5> <%= meme.caption %></h5>
+      	   	   <img class="rounded img-fluid" src= <%= meme.url %> >
+      	   </div>
+      <%  })  %>
+      	
+      </div>
+</body>
+
+</html>
