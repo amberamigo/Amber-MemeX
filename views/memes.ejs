@@ -2,14 +2,16 @@
 <html>
 <head>
 	<title>XMeme - Amber</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
+<body >
 	<div class="container">
 		<h1 class="heading">XMeme</h1>
      
-	   <form action="/" method="post">
+	   <form action="/" method="post" autocomplete="off">
 
           <div class="form-group">
              <label for="name">Meme Owner</label>
@@ -18,7 +20,7 @@
 
          <div class="form-group">
              <label for="caption">Caption</label>
-             <input type="text" class="form-control" name="caption" placeholder="Be creative with the caption">
+             <input type="text" class="form-control"  name="caption" placeholder="Be creative with the caption">
          </div>
 
          <div class="form-group">
@@ -32,15 +34,34 @@
          </div>
       </form>
 
-      <div>
+
+      <br>
+  <hr/>
+      <br>
+
+      <div class="meme">
       	  <% memeItems.reverse(); %>
-      	  
-      	  <% memeItems.forEach(function(meme) {  %>
-      	   <div class="col-md-4">
-      	   	   <h3> <%= meme.name %></h3>
-      	   	   <h5> <%= meme.caption %></h5>
-      	   	   <img class="rounded img-fluid" src= <%= meme.url %> >
+
+     <%# for fetching first 100 memes %>
+      <%	const latestMemeItems = memeItems.slice(0,100);   %>
+
+       	  <% latestMemeItems.forEach(function(meme) {  %>
+      	   <div class="col-md-4 mx-auto ">
+
+                 <h3 class="mb-0 name"> <strong><%= meme.name %> </strong></h3>
+                 
+              <div class="thumbnail">
+                <p class="caption"> <%= meme.caption %> </p>
+                    <form action="/edit" method="post">
+                        <button class="btn btn-primary" name="id" value='<%= meme.id %>'>Edit</button> 
+                    </form>
+                
+      	   	     <img class="rounded img-fluid " src= <%= meme.url %> >
+              </div>
       	   </div>
+
+           <br/>
+           <br/>
       <%  })  %>
       	
       </div>

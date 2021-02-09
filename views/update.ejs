@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XMeme - Amber</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body >
+	<div class="container">
+		
+  <form action="/memes/edit" class="form-container" method="post">
+     <div class="form-group">
+             <label for="caption">Caption</label>
+             <input type="text" class="form-control"  name="caption" placeholder="Be creative with the caption">
+         </div>
+
+     <div class="form-group">
+             <label for="url">Meme URL</label>
+             <div class="input-group mb-3">
+                  <input type="text" class="form-control" name="url" placeholder="Enter URL of your meme here" >
+             </div>
+         </div>
+    <button type="submit" class="btn-primary">Update</button>
+  </form>
+</div>
