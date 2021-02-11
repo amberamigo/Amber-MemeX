@@ -19,7 +19,7 @@ app.use(express.json());
 
 ////////////////////////////  mongoose initialization //////////////////////
 
-mongoose.connect('mongodb://localhost:27017/memesDB', {useNewUrlParser: true, useUnifiedTopology:true });
+mongoose.connect('mongodb://mongo:27017/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
 mongoose.set('useFindAndModify', false);
 
 
@@ -74,13 +74,13 @@ app.post("/", function(req, res) {
 	 Meme.find({name : req.body.name, caption : req.body.caption, url : req.body.url})
 	      .then(async function(memes){
 	      	if(memes.length){
-				console.log("exists");
 				res.status(409).send("Oh uh, Duplicate post!!!");
 			   }else{
 			   	   uniqueId++;
                    const savedMeme = await newMeme.save();
+                   res.redirect("/");
 			   }
-			    res.redirect("/");
+			    
 			});
 });
 /////////////////////////////////////////////////// for post using api calls /////////////////////////////////////////////
@@ -93,20 +93,16 @@ app.post("/memes", function(req, res) {
 	url : req.body.url
 	});
 
-	  Meme.find({name : req.body.name, caption : req.body.caption, url : req.body.url}, function(err, memes) {
-			if(memes.length){
-				console.log("exists");
+	  Meme.find({name : req.body.name, caption : req.body.caption, url : req.body.url})
+	      .then(async function(memes){
+	      	if(memes.length){
 				res.status(409).send("Oh uh, Duplicate post!!!");
-			}else{
-				uniqueId++;
-	
-                 newMeme.save(function(err){
-    	          if(err)
-    		         console.log(err);
-                 });
-                  res.json({"id" : (uniqueId-1).toString()});
-			}
-	});
+			   }else{
+			   	   uniqueId++;
+                   const savedMeme = await newMeme.save();
+                     res.json({"id" : (uniqueId-1).toString()});
+			   }
+			});
 });
 
 
@@ -176,7 +172,6 @@ app.post('/memes/edit', async function (req, res) {
    		        console.log(err);
             });
      }
-
     res.redirect("/");
 } catch(err){
 	res.status(400).json({message : err.message});
@@ -192,14 +187,13 @@ app.post("/edit", function(req, res) {
 
 
 //////////////////////////////////////////////////    server local host //////////////////////////////////////////////
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+// let port = process.env.PORT;
+// if (port == null || port == "") {
+//   port = 8081;
+// }
+const port = 3000;
 
 
-app.listen(3000, function() {
-  console.log("Server started successfully");
+app.listen(port, function() {
+  console.log("Server started successfully at " + port);
 });
-
-
