@@ -18,8 +18,9 @@ app.use(express.json());
 
 
 ////////////////////////////  mongoose initialization //////////////////////
-
-mongoose.connect('mongodb://mongo:27017/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
+const port = 3000;
+console.log(port);
+mongoose.connect('mongodb://localhost:27017/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
 mongoose.set('useFindAndModify', false);
 
 
@@ -191,7 +192,7 @@ app.post("/edit", function(req, res) {
 // if (port == null || port == "") {
 //   port = 8081;
 // }
-const port = 3000;
+
 
 
 app.listen(port, function() {

@@ -15,7 +15,6 @@ curl --location --request POST 'http://localhost:8081/memes' \
 "caption": "This is a meme"
 }'
 
-
 # Execute the GET /memes endpoint using curl
 
 curl --location --request GET 'http://localhost:8081/memes'

@@ -42,9 +42,7 @@ curl --location --request POST 'http://localhost:8081/memes' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 "name": "xyz",
-
 "url": "abc.com",
-
 "caption": "This is a meme"
 }'
 
