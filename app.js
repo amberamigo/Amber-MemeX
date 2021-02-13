@@ -18,8 +18,6 @@ app.use(express.json());
 
 
 ////////////////////////////  mongoose initialization //////////////////////
-const port = 3000;
-console.log(port);
 mongoose.connect('mongodb://localhost:27017/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
 mongoose.set('useFindAndModify', false);
 
@@ -57,7 +55,8 @@ app.get("/", async function(req, res){
 //////////////////////////////////////////  to get all memes in JSON //////////////////////////////////////////////////////
 app.get("/memes", async function(req, res) {
 		const allMemes = await Meme.find({});
-		res.json(allMemes);
+		res.status(200).json(allMemes);
+		
 });
 
 
@@ -145,7 +144,7 @@ try{
             });
      }
 
-    console.log(res);
+   
     res.json(res.statusCode);
 } catch(err){
 	res.status(400).json({message : err.message});
@@ -194,6 +193,7 @@ app.post("/edit", function(req, res) {
 // }
 
 
+const port = 8081;
 
 app.listen(port, function() {
   console.log("Server started successfully at " + port);
