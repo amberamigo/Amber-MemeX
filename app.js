@@ -127,6 +127,7 @@ app.patch('/memes/:id', async function (req, res) {
 	url = req.body.url;
 	editMeme = req.params.id;
 try{
+
    if(!cap.length){
         await Meme.updateOne({id : editMeme}, { $set: {url: req.body.url }}, function(err, res){
    	        if(err)
@@ -137,7 +138,7 @@ try{
    	        if(err)
    		        console.log(err);
             });
-     }else{
+     }else if(cap.length && url.length){
      	await Meme.updateOne({id : editMeme}, { $set: {caption: req.body.caption, url: req.body.url }}, function(err, res){
    	        if(err)
    		        console.log(err);
