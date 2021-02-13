@@ -1,9 +1,9 @@
+
 const express = require("express");
 // const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 // const _ = require("lodash");
-
 const app = express();
 
 ////for using public folders /////////
@@ -18,7 +18,7 @@ app.use(express.json());
 
 
 ////////////////////////////  mongoose initialization //////////////////////
-mongoose.connect('mongodb://localhost:27017/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
+mongoose.connect('mongodb+srv://amigo_blog:Test123@cluster0.dbkp6.mongodb.net/meme', {useNewUrlParser: true, useUnifiedTopology:true }).then(() => console.log('MongoDB connected'));
 mongoose.set('useFindAndModify', false);
 
 
@@ -187,13 +187,10 @@ app.post("/edit", function(req, res) {
 
 
 //////////////////////////////////////////////////    server local host //////////////////////////////////////////////
-// let port = process.env.PORT;
-// if (port == null || port == "") {
-//   port = 8081;
-// }
-
-
-const port = 8081;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8081;
+}
 
 app.listen(port, function() {
   console.log("Server started successfully at " + port);
