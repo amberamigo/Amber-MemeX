@@ -76,6 +76,13 @@ app.post("/", function(req, res) {
 	      	if(memes.length){
 				res.status(409).send("Oh uh, Duplicate post!!!");
 			   }else{
+			   	      Meme.find({})
+	                      .then(async function(memes){
+	                        	if(!memes.length){
+			                	 uniqueId=1;
+			               }
+			            });
+
 			   	   uniqueId++;
                    const savedMeme = await newMeme.save();
                    res.redirect("/");
@@ -98,10 +105,17 @@ app.post("/memes", function(req, res) {
 	      	if(memes.length){
 				res.status(409).send("Oh uh, Duplicate post!!!");
 			   }else{
+			   	     Meme.find({})
+	                      .then(async function(memes){
+	                        	if(!memes.length){
+			                	 uniqueId=1;
+			               }
+			            });
+
 			   	   uniqueId++;
                    const savedMeme = await newMeme.save();
                      res.json({"id" : (uniqueId-1).toString()});
-			   }
+			    }
 			});
 });
 
