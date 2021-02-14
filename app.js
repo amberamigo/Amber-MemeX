@@ -157,22 +157,23 @@ app.post('/memes/edit', async function (req, res) {
 	url = req.body.url;
 
  try{
-   if(!cap.length){
-        await Meme.updateOne({id : editMeme}, { $set: {url: req.body.url }}, function(err, res){
-   	        if(err)
-   		        console.log(err);
-            });
-     }else if(!url.length){
-     	await  Meme.updateOne({id : editMeme}, { $set: {caption: req.body.caption}}, function(err, res){
-   	        if(err)
-   		        console.log(err);
-            });
-     }else if(cap.length && url.length){
+ 	if(cap.length && url.length){
      	await Meme.updateOne({id : editMeme}, { $set: {caption: req.body.caption, url: req.body.url }}, function(err, res){
    	        if(err)
    		        console.log(err);
             });
+    }else if(url.length){
+        await Meme.updateOne({id : editMeme}, { $set: {url: req.body.url }}, function(err, res){
+   	        if(err)
+   		        console.log(err);
+            });
+     }else if(cap.length){
+     	await  Meme.updateOne({id : editMeme}, { $set: {caption: req.body.caption}}, function(err, res){
+   	        if(err)
+   		        console.log(err);
+            });
      }
+
     res.redirect("/");
 } catch(err){
 	res.status(400).json({message : err.message});
