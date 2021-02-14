@@ -43,7 +43,7 @@ const Meme = mongoose.model("Meme", memeSchema);
 
 
 
-var editMeme;  // id of the meme to be edited
+ var editMeme=1;  // id of the meme to be edited
 
 ///////////////////////////////////////////  home page  ///////////////////////////////////////////////////
 app.get("/", async function(req, res){
@@ -61,9 +61,17 @@ app.get("/memes", async function(req, res) {
 
 
 //////////////////////////////////////////////  post request //////////////////////////////////////////////////////////////
-var uniqueId = 1;
+ var uniqueId=1;
 app.post("/", function(req, res) {
 
+            Meme.find({}).then(async function(memed){
+	             // console.log("memes : " + memed);	        
+	                  	if(!memed.length){
+	                    	// console.log("length " + memed.length);
+			             	uniqueId=1;
+			               }
+			            });
+                  
 	const newMeme = new Meme({
 	id : uniqueId.toString(),
 	name : req.body.name,
@@ -76,14 +84,7 @@ app.post("/", function(req, res) {
 	      	if(memes.length){
 				res.status(409).send("Oh uh, Duplicate post!!!");
 			   }else{
-			   	      Meme.find({})
-	                      .then(async function(memes){
-	                        	if(!memes.length){
-			                	 uniqueId=1;
-			               }
-			            });
-
-			   	   uniqueId++;
+			   	    uniqueId++;
                    const savedMeme = await newMeme.save();
                    res.redirect("/");
 			   }
@@ -92,6 +93,14 @@ app.post("/", function(req, res) {
 });
 /////////////////////////////////////////////////// for post using api calls /////////////////////////////////////////////
 app.post("/memes", function(req, res) {
+
+	  Meme.find({}).then(async function(memed){
+	             // console.log("memes : " + memed);	        
+	                  	if(!memed.length){
+	                    	// console.log("length " + memed.length);
+			             	uniqueId=1;
+			               }
+			            });
 
 	const newMeme = new Meme({
 	id : uniqueId.toString(),
@@ -105,14 +114,7 @@ app.post("/memes", function(req, res) {
 	      	if(memes.length){
 				res.status(409).send("Oh uh, Duplicate post!!!");
 			   }else{
-			   	     Meme.find({})
-	                      .then(async function(memes){
-	                        	if(!memes.length){
-			                	 uniqueId=1;
-			               }
-			            });
-
-			   	   uniqueId++;
+                  uniqueId++;
                    const savedMeme = await newMeme.save();
                      res.json({"id" : (uniqueId-1).toString()});
 			    }
