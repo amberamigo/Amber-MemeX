@@ -167,7 +167,7 @@ app.post('/memes/edit', async function (req, res) {
    	        if(err)
    		        console.log(err);
             });
-     }else{
+     }else if(cap.length && url.length){
      	await Meme.updateOne({id : editMeme}, { $set: {caption: req.body.caption, url: req.body.url }}, function(err, res){
    	        if(err)
    		        console.log(err);
